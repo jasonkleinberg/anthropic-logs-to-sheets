@@ -1,0 +1,31 @@
+name: Sync Anthropic logs to Google Sheets
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"  # every 15 minutes
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run sync
+        env:
+          ANTHROPIC_ADMIN_KEY: ${{ secrets.ANTHROPIC_ADMIN_KEY }}
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
+          ANTHROPIC_USAGE_ENDPOINT: ${{ secrets.ANTHROPIC_USAGE_ENDPOINT }}
+          ANTHROPIC_AUDIT_ENDPOINT: ${{ secrets.ANTHROPIC_AUDIT_ENDPOINT }}
+          ANTHROPIC_VERSION: ${{ secrets.ANTHROPIC_VERSION }}
+        run: python sync.py
