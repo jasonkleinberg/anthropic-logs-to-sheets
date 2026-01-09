@@ -26,8 +26,4 @@ jobs:
           ANTHROPIC_ADMIN_KEY: ${{ secrets.ANTHROPIC_ADMIN_KEY }}
           GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
 
-          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
-          ANTHROPIC_USAGE_ENDPOINT: ${{ secrets.ANTHROPIC_USAGE_ENDPOINT }}
-          ANTHROPIC_AUDIT_ENDPOINT: ${{ secrets.ANTHROPIC_AUDIT_ENDPOINT }}
-          ANTHROPIC_VERSION: ${{ secrets.ANTHROPIC_VERSION }}
         run: python sync.py
